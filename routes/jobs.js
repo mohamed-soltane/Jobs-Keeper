@@ -1,13 +1,27 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
+
+const { check, validationResult } = require('express-validator/check');
+
+const User = require('../models/User');
+const Job = require('../models/Job');
+
 
 
 // @route  GET api/jobs
 // @desc   Get all users jobs
 // @access Private
-router.get('/', (req, res) => {
-    res.send('Get all jobs');
-});
+router.get('/', auth, async(req, res) => {
+    try{
+        const jobs = await Job.find({ user: req.user.id }).sort({ date: -1 });
+        res.json(jobs);
+    }catch (err){
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+}); 
+
 
 // @route  POST api/jobs
 // @desc   Add  new job 
