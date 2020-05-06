@@ -26,22 +26,95 @@ router.get('/', auth, async(req, res) => {
 // @route  POST api/jobs
 // @desc   Add  new job 
 // @access Private
-router.post('/', (req, res) => {
-    res.send('Add  new job');
-});
+router.post('/', [ auth, [
+    check('title', 'title is required')
+    .not()
+    .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { title, companyName, email, phone, location, date } = req.body;
+
+    try {
+        const newJob = new Job ({
+            title,
+            companyName,
+            email,
+            phone,
+            location,
+            date,
+            user: req.user.id
+         }); 
+
+         const job = await newJob.save();
+
+         res.json(job);
+        }catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        } 
+    });
+  
 
 // @route  PUT api/jobs/:id
 // @desc   Update  job 
 // @access Private
-router.put('/:id', (req, res) => {
-    res.send('Update job');
+router.put('/:id', auth,  async (req, res) => {
+    const { title, companyName, email, phone, location} = req.body;
+
+    // Build Job Object
+    const jobFields = {};
+    if(title) jobFields.title = title;
+    if(companyName) jobFields.companyName = companyName;
+    if(email) jobFields.email = email;
+    if(phone) jobFields.phone = phone;
+    if(location) jobFields.location = location;
+
+    try{
+        let job = await Job.findById(req.params.id);
+
+        if(!job) return res.status(404).json({ msg: 'Job not found' });
+
+        //Make sure User Owns job
+        if(job.user.toString() !== req.user.id){
+            return res.status(401).json({ msg: 'Not authorized'});     
+        }
+        job = await Job.findByIdAndUpdate(
+         req.params.id,
+         { $set: jobFields},
+         {  new: true });
+
+         res.json(job)
+    }catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        } 
 });
 
 // @route  DELETE api/jobs
 // @desc   Delete  job 
 // @access Private
-router.delete('/:id', (req, res) => {
-    res.send('Delete job');
+router.delete('/:id',auth,  async(req, res) => {
+    try{
+        let job = await Job.findById(req.params.id);
+
+        if(!job) return res.status(404).json({ msg: 'Job not found' });
+
+        //Make sure User Owns job
+        if(job.user.toString() !== req.user.id){
+            return res.status(401).json({ msg: 'Not authorized'});     
+        }
+        await Job.findByIdAndRemove(req.params.id);
+        res.json({ msg: 'Contact removed' })
+    }catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        } 
 });
 
 module.exports = router;
