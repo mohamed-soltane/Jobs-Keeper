@@ -1,7 +1,7 @@
 import React, {useReducer } from 'react';
 import uuid from 'uuid';
-import jobContext from './JobContext';
-import jobReducer from './JobReducer';
+import jobContext from './jobContext';
+import jobReducer from './jobReducer';
 import {
     ADD_JOB,
     DELETE_JOB,
@@ -17,24 +17,26 @@ const JobState = props => {
         jobs: [
             {
                 id:"1",
-                name:"Sara Watson",
+                title:"Junior Enginer",
+                companyName:"Google",
                 email:"Google@gmail.com",
                 phone:"610-969-8044",
-                type: 'personal'
+                location: 'San francisco'
             },
             {
-                id:"2",
-                name:"Jasmine Watson",
-                email:"Google@gmail.com",
+                id:"1",
+                title:"Senior Enginer",
+                companyName:"Facebook",
+                email:"Facebook@gmail.com",
                 phone:"610-969-8044",
-                type: 'personal'
-            },
-            {
-                id:"3",
-                name:"samantha Watson",
-                email:"Google@gmail.com",
+                location: 'New York'
+            },  {
+                id:"1",
+                title:"FrontEnd Enginer",
+                companyName:"Amazon",
+                email:"Amazon@gmail.com",
                 phone:"610-969-8044",
-                type: 'personal'
+                location: 'Miami'
             }
         ]
     };
@@ -62,3 +64,5 @@ const JobState = props => {
         </jobContext.Provider>
     )
 }
+
+export default JobState;
