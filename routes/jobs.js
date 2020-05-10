@@ -38,15 +38,14 @@ router.post('/', [ auth, [
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { title, companyName, email, phone, location, date } = req.body;
+    const { title, companyName, location, status, date } = req.body;
 
     try {
         const newJob = new Job ({
             title,
             companyName,
-            email,
-            phone,
             location,
+            status,
             date,
             user: req.user.id
          }); 
@@ -65,15 +64,15 @@ router.post('/', [ auth, [
 // @desc   Update  job 
 // @access Private
 router.put('/:id', auth,  async (req, res) => {
-    const { title, companyName, email, phone, location} = req.body;
+    const { title, companyName, location, status} = req.body;
 
     // Build Job Object
     const jobFields = {};
     if(title) jobFields.title = title;
     if(companyName) jobFields.companyName = companyName;
-    if(email) jobFields.email = email;
-    if(phone) jobFields.phone = phone;
     if(location) jobFields.location = location;
+    if(status) jobFields.status = status;
+
 
     try{
         let job = await Job.findById(req.params.id);

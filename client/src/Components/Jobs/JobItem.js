@@ -3,26 +3,24 @@ import PropTypes from 'prop-types';
 
 
 const JobItem = ({ job }) => {
-    const { id, title, companyName, email, phone, location } = job;
+    const { id, title, companyName, status, location } = job;
     return ( 
         <div className="card bg-light">
             <h3 className="text-primary text-left">
                 {title}{''}
+                <span 
+                    className={
+                        'badge ' +
+                        (status === 'applied' ? 'badge-success' : 'badge-primary')
+                    }
+                    >
+                        {status.charAt(0).toUpperCase() + status.slice(1)}
+                    </span>
             </h3>
             <ul className="list">
                 {companyName && (
                     <li>
                        <i className='"fas fa-city"' />{companyName}
-                    </li>
-                )}
-                {email && (
-                    <li>
-                       <i className='fas fa-envelope-open' /> {email}
-                    </li>
-                )}
-                {phone && (
-                    <li>
-                      <i className='fas fa-phone' /> {phone}
                     </li>
                 )} {location && (
                     <li>

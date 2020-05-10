@@ -13,17 +13,14 @@ const JobSchema = mongoose.Schema({
         type: String,
         requires: true  
         },
-    email: {
-        type: String,
-        requires: true
-        },
-    phone: {
-        type: String,
-        requires: true  
-    },
     location: {
         type: String,
         requires: true  
+    },
+    status: {
+        type: String,
+        requires: true,
+        default: 'Applied'
     },
     date: {
         type: Date,
