@@ -1,4 +1,5 @@
 import React, { useContext, Fragment } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import JobContext from '../../context/job/jobContext';
 import JobItem from './JobItem';
 
@@ -11,14 +12,20 @@ const Jobs = () => {
     }
     return ( 
         <Fragment>
+            <TransitionGroup >
             {filtered !== null 
             ? filtered.map(job => (
-              <JobItem  key={job.id}  job={job} />
+                <CSSTransition  key={job.id} timeout={500}  classNames="item">
+                   <JobItem   job={job} />
+                </CSSTransition>
               )) 
             : jobs.map(job => (
-                <JobItem  key={job.id}  job={job} />
+                <CSSTransition  key={job.id} timeout={500}  classNames="item">
+                    <JobItem job={job} />
+                </CSSTransition>
                 ))
             }
+            </TransitionGroup>
         </Fragment>
      );
 }
