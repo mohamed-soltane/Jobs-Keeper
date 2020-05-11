@@ -23,13 +23,13 @@ const JobState = props => {
                 status: 'applied'
             },
             {
-                id:"1",
+                id:"2",
                 title:"Senior Enginer",
                 companyName:"Facebook",
                 location: 'New York',
                 status: 'applied'
             },  {
-                id:"1",
+                id:"3",
                 title:"FrontEnd Enginer",
                 companyName:"Amazon",
                 location: 'Miami',
@@ -45,7 +45,9 @@ const JobState = props => {
     }
 
     // Delete Job
-
+    const deleteJob = id => {
+        dispatch({ type: DELETE_JOB, payload: id })
+    }
     // Set Current Job
 
     // Clear Current Job
@@ -59,7 +61,8 @@ const JobState = props => {
         <jobContext.Provider
             value={{
                 jobs:state.jobs,
-                addJob
+                addJob,
+                deleteJob
             }}
             >
                 {props.children}
