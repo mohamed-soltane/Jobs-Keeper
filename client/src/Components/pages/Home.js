@@ -1,6 +1,8 @@
 import React from 'react';
 import Jobs from '../Jobs/Jobs';
 import JobForm from '../Jobs/JobForm';
+import JobFilter from '../Jobs/JobFilter';
+
 
 
 const Home = () => {
@@ -10,6 +12,7 @@ const Home = () => {
           <JobForm />  
         </div>
         <div>
+          <JobFilter />
            <Jobs /> 
         </div>
     </div>

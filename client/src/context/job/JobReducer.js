@@ -38,6 +38,19 @@ export default (state, action) => {
             ...state,
             current: null
         };
+        case FILTER_JOBS:
+            return { 
+                ...state,
+                filtered: state.jobs.filter(job => {
+                const regex = new RegExp(`${action.payload}`,'gi');
+                return job.title.match(regex) || job.companyName.match(regex);
+                })
+            };
+        case CLEAR_FILTER:
+        return { 
+            ...state,
+            filtered: null
+        };
         default:
            return state;
     }

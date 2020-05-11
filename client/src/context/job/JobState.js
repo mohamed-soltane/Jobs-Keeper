@@ -36,9 +36,11 @@ const JobState = props => {
                 status: 'phome interview'
             }
         ],
-        current: null
+        current: null,
+        filtered: null
     };
     const [state, dispatch] = useReducer(jobReducer, initialState);
+
     // Add Job
     const addJob = job => {
         job.id = uuid();
@@ -49,33 +51,47 @@ const JobState = props => {
     const deleteJob = id => {
         dispatch({ type: DELETE_JOB, payload: id });
     };
+
     // Set Current Job
     const setCurrent = job => {
         dispatch({ type: SET_CURRENT, payload: job });
     };
+
     // Clear Current Job
     const clearCurrent = () => {
         dispatch({ type: CLEAR_CURRENT});
     };
+
     // Update Job
     const updateJob = job => {
         dispatch({ type: UPDATE_JOB, payload: job });
     };
 
-
     // Filter Jobs
+    const filterJobs = text => {
+        dispatch({ type: FILTER_JOBS, payload: text });
+    };
 
     // Clear filter
+    const clearFilter = () => {
+        dispatch({ type: CLEAR_FILTER});
+    };
+
     return(
         <jobContext.Provider
             value={{
                 jobs:state.jobs,
                 current: state.current,
+                filtered: state.filtered,
                 addJob,
                 deleteJob,
                 setCurrent,
                 clearCurrent,
-                updateJob
+                updateJob,
+                filterJobs,
+                clearFilter
+
+
 
             }}
             >
