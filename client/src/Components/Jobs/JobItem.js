@@ -5,14 +5,16 @@ import JobContext from '../../context/job/jobContext';
 
 const JobItem = ({ job }) => {
     const jobContext = useContext(JobContext);
-    const { deleteJob } = jobContext;
+    const { deleteJob, setCurrent, clearCurrent } = jobContext;
 
 
     const { id, title, companyName, status, location } = job;
 
     const onDelete = () => {
         deleteJob(id);
-    }
+        clearCurrent();
+    };
+
     return ( 
         <div className="card bg-light">
             <h3 className="text-primary text-left">
@@ -37,9 +39,8 @@ const JobItem = ({ job }) => {
                     </li>
                 )}
             </ul>
-            <button className="btn btn-dark btn-sm">Edit</button>
+            <button className="btn btn-dark btn-sm" onClick={() => setCurrent(job)}>Edit</button>
             <button className="btn btn-danger btn-sm" onClick={onDelete}>Delete</button>
-
         </div>
      );
 };

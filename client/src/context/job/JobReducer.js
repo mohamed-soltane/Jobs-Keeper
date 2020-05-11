@@ -19,7 +19,18 @@ export default (state, action) => {
         return { 
             ...state,
             jobs: state.jobs.filter(job => job.id !== action.payload)
-        }
+        };
+        case SET_CURRENT:
+        return { 
+            ...state,
+            current: action.payload
+        };
+        
+        case CLEAR_CURRENT:
+        return { 
+            ...state,
+            current: null
+        };
         default:
            return state;
     }
