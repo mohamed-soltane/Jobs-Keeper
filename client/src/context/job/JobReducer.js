@@ -20,6 +20,13 @@ export default (state, action) => {
             ...state,
             jobs: state.jobs.filter(job => job.id !== action.payload)
         };
+        case UPDATE_JOB:
+        return { 
+            ...state,
+            jobs: state.jobs.map(job =>
+            job.id === action.payload.id ? action.payload : job
+            )
+        };
         case SET_CURRENT:
         return { 
             ...state,

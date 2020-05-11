@@ -1,9 +1,25 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import JobContext from '../../context/job/jobContext';
 
 
 const JobForm = () => {
     const jobContext = useContext(JobContext);
+
+    const { addJob, clearCurrent, updateJob, current} = jobContext;
+   
+    useEffect(() => {
+        if(current !== null) {
+            setJob(current);
+        } else {
+            setJob({
+                title:'',
+                companyName:'',
+                location:'',
+                status:'applied'
+            });
+        }
+        },[jobContext, current]);
+
     const [job, setJob] = useState({
         title:'',
         companyName:'',
@@ -18,18 +34,22 @@ const JobForm = () => {
     });
     const onSubmit = e => {
         e.preventDefault();
-        jobContext.addJob(job);
-        setJob({
-            title:'',
-            companyName:'',
-            location:'',
-            status:'applied'
-            });
+        if(current === null ){
+            addJob(job);
+        }else {
+            updateJob(job)
+
+        }
+        clearAll();
         };
+
+    const clearAll = () => {
+       clearCurrent();
+    }
  
     return ( 
         <form onSubmit={onSubmit}>
-           <h2 className="text-primary">Add Job</h2>
+           <h2 className="text-primary">{current ? 'Edit Job' : 'Add Job'}</h2>
            <input 
               type='text' 
               placeholder='title' 
@@ -75,9 +95,18 @@ const JobForm = () => {
             <div>
             <input 
                 type="submit" 
-                value="Add Job" 
+                value= {current ? 'Update Job' : 'Add Job'} 
                 className="btn btn-primary btn-block" />
             </div>
+            {current && (
+                <div>
+                    <button className='btn btn-ligth btn-block' 
+                    onClick={clearAll}
+                    >
+                        Clear
+                    </button>
+                </div>
+            )}
             
            
         </form>

@@ -58,6 +58,10 @@ const JobState = props => {
         dispatch({ type: CLEAR_CURRENT});
     };
     // Update Job
+    const updateJob = job => {
+        dispatch({ type: UPDATE_JOB, payload: job });
+    };
+
 
     // Filter Jobs
 
@@ -70,7 +74,8 @@ const JobState = props => {
                 addJob,
                 deleteJob,
                 setCurrent,
-                clearCurrent
+                clearCurrent,
+                updateJob
 
             }}
             >
