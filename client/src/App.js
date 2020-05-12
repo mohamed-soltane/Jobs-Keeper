@@ -7,16 +7,16 @@ import Register from './Components/auth/Register';
 import Login from './Components/auth/Login';
 import Alerts from './Components/layout/Alerts';
 
-
-
 import JobState from './context/job/JobState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alert/AlertState';
-
-
-
+import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
+
+if (localStorage.token){
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
   return (
