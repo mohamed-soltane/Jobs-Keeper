@@ -29,7 +29,7 @@ const Navbar = ({title, icon}) => {
                 <Link to='/register'>Register</Link>
             </li>
             <li>
-                <Link to='/login'>login</Link>
+                <Link to='/login'>Login</Link>
             </li>
         </Fragment>
     );
