@@ -14,7 +14,7 @@ const Register = props => {
     useEffect(() => {
         if(isAuthenticated){
             props.history.push('/');
-            
+
         }
         if(error === 'User already exists') {
             setAlert(error, 'danger');
@@ -22,7 +22,7 @@ const Register = props => {
             console.log(error);
         }
         // eslint-disable-next-line
-    }, [error, isAuthenticated, props.history])
+    }, [error, isAuthenticated, props.history]);
 
 const [user,setUser] = useState({
     name: '',
