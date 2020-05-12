@@ -5,7 +5,9 @@ import {
     CLEAR_CURRENT,
     UPDATE_JOB,
     FILTER_JOBS,
-    CLEAR_FILTER
+    CLEAR_FILTER,
+    JOB_ERROR,
+    CLEAR_JOB
 } from '../types';
 
 export default (state, action) => {
@@ -51,6 +53,11 @@ export default (state, action) => {
             ...state,
             filtered: null
         };
+        case JOB_ERROR:
+            return { 
+                ...state,
+                error: action.payload  
+            };
         default:
            return state;
     }

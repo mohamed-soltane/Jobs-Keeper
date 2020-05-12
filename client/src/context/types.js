@@ -5,6 +5,7 @@ export const CLEAR_CURRENT = 'CLEAR_CURRENT';
 export const UPDATE_JOB = 'UPDATE_JOB';
 export const FILTER_JOBS = 'FILTER_JOBS';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
+export const JOB_ERROR = 'JOB_ERROR';
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
