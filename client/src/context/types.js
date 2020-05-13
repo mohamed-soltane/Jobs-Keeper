@@ -1,3 +1,5 @@
+export const GET_JOBS = 'GET_JOBS';
+export const CLEAR_JOBS ="CLEAR_JOB"
 export const ADD_JOB = 'ADD_JOB';
 export const DELETE_JOB = 'DELETE_JOB';
 export const SET_CURRENT = 'SET_CURRENT';

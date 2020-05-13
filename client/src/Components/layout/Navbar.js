@@ -2,15 +2,22 @@ import React, {Fragment, useContext} from "react";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/AuthContext';
+import JobContext from '../../context/job/jobContext';
+
 
 
 const Navbar = ({title, icon}) => {
     const authContext = useContext(AuthContext);
+    const jobContext = useContext(JobContext);
+
 
     const { isAuthenticated, logout, user } = authContext;
+    const { clearJobs} = jobContext;
+
 
     const onLogout = () => {
         logout();
+        clearJobs();
     }
 
     const authLinks = (

@@ -1,4 +1,5 @@
 import {
+    GET_JOBS,
     ADD_JOB,
     DELETE_JOB,
     SET_CURRENT,
@@ -7,39 +8,57 @@ import {
     FILTER_JOBS,
     CLEAR_FILTER,
     JOB_ERROR,
-    CLEAR_JOB
+    CLEAR_JOBS
 } from '../types';
 
 export default (state, action) => {
     switch(action.type) {
-    case ADD_JOB:
-        return { 
+        case GET_JOBS:
+            return { 
             ...state,
-            jobs: [...state.jobs, action.payload]
-          };
-          case DELETE_JOB:
-        return { 
+            jobs: action.payload,
+            loading:false
+            };
+        case ADD_JOB:
+            return { 
             ...state,
-            jobs: state.jobs.filter(job => job.id !== action.payload)
-        };
+            jobs: [...state.jobs, action.payload],
+            loading:false
+            };
+        case DELETE_JOB:
+            return { 
+                ...state,
+                jobs: state.jobs.filter(job => job.id !== action.payload),
+                loading:false
+            };
+        case CLEAR_JOBS:
+            return { 
+            ...state,
+            jobs: null,
+            filtered: null,
+            error: null,
+            current: null
+            };
         case UPDATE_JOB:
-        return { 
-            ...state,
-            jobs: state.jobs.map(job =>
-            job.id === action.payload.id ? action.payload : job
-            )
-        };
+            return { 
+                ...state,
+                jobs: state.jobs.map(job =>
+                job.id === action.payload.id ? action.payload : job
+                ),
+                loading:false
+
+            };
         case SET_CURRENT:
-        return { 
-            ...state,
-            current: action.payload
-        };
+            return { 
+                ...state,
+                current: action.payload
+            };
         
         case CLEAR_CURRENT:
-        return { 
-            ...state,
-            current: null
-        };
+            return { 
+                ...state,
+                current: null
+            };
         case FILTER_JOBS:
             return { 
                 ...state,
@@ -49,10 +68,10 @@ export default (state, action) => {
                 })
             };
         case CLEAR_FILTER:
-        return { 
-            ...state,
-            filtered: null
-        };
+            return { 
+                ...state,
+                filtered: null
+            };
         case JOB_ERROR:
             return { 
                 ...state,

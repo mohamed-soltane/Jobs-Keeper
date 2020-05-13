@@ -4,24 +4,39 @@ import { v4 as uuid } from 'uuid';
 import jobContext from './jobContext';
 import jobReducer from './jobReducer';
 import {
+    GET_JOBS,
     ADD_JOB,
     DELETE_JOB,
     SET_CURRENT,
     CLEAR_CURRENT,
     UPDATE_JOB,
     FILTER_JOBS,
+    CLEAR_JOBS,
     CLEAR_FILTER,
     JOB_ERROR
 } from '../types';
 
 const JobState = props => {
     const initialState = {
-        jobs: [],
+        jobs: null,
         current: null,
         filtered: null,
         error: null
     };
     const [state, dispatch] = useReducer(jobReducer, initialState);
+    // Get Job
+    const getJobs = async job => {
+        try {
+            const res = await axios.get('/api/jobs');
+            dispatch({ type: GET_JOBS, payload: res.data });
+
+        } catch(err) {
+          dispatch({
+              type: JOB_ERROR,
+              payload: err.response.msg
+          });
+        }
+    };
 
     // Add Job
     const addJob = async job => {
@@ -45,6 +60,11 @@ const JobState = props => {
     // Delete Job
     const deleteJob = id => {
         dispatch({ type: DELETE_JOB, payload: id });
+    };
+
+    //Clear Jobs
+    const clearJobs = job => {
+        dispatch({ type: CLEAR_JOBS });
     };
 
     // Set Current Job
@@ -71,6 +91,7 @@ const JobState = props => {
     const clearFilter = () => {
         dispatch({ type: CLEAR_FILTER});
     };
+    
 
     return(
         <jobContext.Provider
@@ -85,9 +106,9 @@ const JobState = props => {
                 clearCurrent,
                 updateJob,
                 filterJobs,
-                clearFilter
-
-
+                clearFilter,
+                getJobs,
+                clearJobs
 
             }}
             >
