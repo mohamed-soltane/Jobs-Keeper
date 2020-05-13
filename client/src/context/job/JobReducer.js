@@ -25,6 +25,14 @@ export default (state, action) => {
             jobs: [action.payload, ...state.jobs],
             loading:false
             };
+        case UPDATE_JOB:
+            return { 
+                ...state,
+                jobs: state.jobs.map(job =>
+                job._id === action.payload._id ? action.payload : job
+                ),
+                loading:false
+        };
         case DELETE_JOB:
             return { 
                 ...state,
@@ -48,7 +56,6 @@ export default (state, action) => {
                 job.id === action.payload.id ? action.payload : job
                 ),
                 loading:false
-
             };
         case SET_CURRENT:
             return { 

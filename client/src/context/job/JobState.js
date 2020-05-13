@@ -57,6 +57,25 @@ const JobState = props => {
         }
     };
 
+    // Update Job
+    const updateJob = async job => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        try {
+            const res = await axios.put(`/api/jobs/${job._id}`, job, config);
+            dispatch({ type: UPDATE_JOB, payload: res.data });
+
+        } catch(err) {
+          dispatch({
+              type: JOB_ERROR,
+              payload: err.response.msg
+          });
+        }
+    };
+
     // Delete Job
     const deleteJob = async id => {
         try {
@@ -90,10 +109,7 @@ const JobState = props => {
         dispatch({ type: CLEAR_CURRENT});
     };
 
-    // Update Job
-    const updateJob = job => {
-        dispatch({ type: UPDATE_JOB, payload: job });
-    };
+    
 
     // Filter Jobs
     const filterJobs = text => {
