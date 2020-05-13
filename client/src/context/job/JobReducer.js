@@ -22,13 +22,15 @@ export default (state, action) => {
         case ADD_JOB:
             return { 
             ...state,
-            jobs: [...state.jobs, action.payload],
+            jobs: [action.payload, ...state.jobs],
             loading:false
             };
         case DELETE_JOB:
             return { 
                 ...state,
-                jobs: state.jobs.filter(job => job.id !== action.payload),
+                jobs: state.jobs.filter(
+                    job => job._id !== action.payload
+                ),
                 loading:false
             };
         case CLEAR_JOBS:

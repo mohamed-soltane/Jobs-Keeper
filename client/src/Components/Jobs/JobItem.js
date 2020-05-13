@@ -8,10 +8,10 @@ const JobItem = ({ job }) => {
     const { deleteJob, setCurrent, clearCurrent } = jobContext;
 
 
-    const { id, title, companyName, status, location } = job;
+    const { _id, title, companyName, status, location } = job;
 
     const onDelete = () => {
-        deleteJob(id);
+        deleteJob(_id);
         clearCurrent();
     };
 

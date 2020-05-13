@@ -58,7 +58,20 @@ const JobState = props => {
     };
 
     // Delete Job
-    const deleteJob = id => {
+    const deleteJob = async id => {
+        try {
+            await axios.delete(`/api/jobs/${id}`);
+            dispatch({ 
+                type: DELETE_JOB,
+                payload: id
+             });
+
+        } catch(err) {
+          dispatch({
+              type: JOB_ERROR,
+              payload: err.response.msg
+          });
+        }
         dispatch({ type: DELETE_JOB, payload: id });
     };
 
