@@ -2,7 +2,7 @@ import React, { useContext, useEffect }from 'react';
 import Jobs from '../Jobs/Jobs';
 import JobForm from '../Jobs/JobForm';
 import JobFilter from '../Jobs/JobFilter';
-import authContext from '../../context/auth/AuthContext';
+import Chart from '../chart/Chart';
 import AuthContext from '../../context/auth/AuthContext'
 
 
@@ -17,7 +17,8 @@ const Home = () => {
     return (
     <div className="grid-2">
         <div>
-          <JobForm />  
+          <JobForm /> 
+          <Chart />
         </div>
         <div>
           <JobFilter />
